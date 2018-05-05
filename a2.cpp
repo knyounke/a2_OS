@@ -7,6 +7,7 @@
 #include <sstream>
 #include <string.h>
 #include <stdlib.h>
+#include <sys/wait.h>
 #include <unistd.h>
 
 using namespace std;
@@ -16,9 +17,11 @@ void bubbleSort(string arr[][22], int n, int start){
 int i, j;
 string temp[22];
 
-  for(int i = start; i < n; i++){
-    for(int j = 1; j < n-1-i; j++){
-       	  if(arr[j][1] > arr[j+1][1]){
+  for(int i = 0; i < n-1; i++){
+    for(int j = start; j < n-i-1; j++){
+	char * num = const_cast<char*>(arr[j][1].c_str());
+	char * num2 = const_cast<char*>(arr[j+1][1].c_str());
+       	  if(strtof(num,0) > strtof(num2,0)){
 	     for(int k = 0; k < 22; k++){
 	     temp[k] = arr[j][k];	
 	     }
@@ -33,7 +36,13 @@ string temp[22];
    
 	}
   }
-
+/*	
+ //test to see if working sort
+int p = 0;
+for (p = start; p < n; p++)
+{
+ cout<<arr[p][1] << endl;
+} */
 }
 
 void twoProcess(string arr[][22]){
@@ -45,11 +54,15 @@ void twoProcess(string arr[][22]){
 		if(pid == 0){
 		//this is the one it's actually doing
 		bubbleSort(arr,4911,0);
-	
+		 	
 		}
 	}
-	//this part is not getting sorted for some reason
-	bubbleSort(arr,4911,4911);	
+	
+	if(pid != 0){//this part is not getting sorted for some reason
+	bubbleSort(arr,4911,4911);
+	wait(NULL);
+	 	
+	}	
 }
 
 int main() 
@@ -94,15 +107,19 @@ int main()
 	}
 	i++;
 	}
-
-	/*//time for one process
+/*
+	//time for one process
 	time(&startTime);		
 	bubbleSort(earthquakes,9822,0);
 	time(&endTime);
 	final = difftime(endTime,startTime); 
-	cout << final << " seconds"; */
-
+	cout << final << " seconds"; 
+*/
+	
+	time(&startTime);
 	twoProcess(earthquakes);
-
+	time(&endTime);
+	final = difftime(endTime,startTime);
+	cout << final << " seconds";
 return 0;
 }

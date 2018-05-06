@@ -15,7 +15,7 @@
 using namespace std;
 
 struct thread_args{
-	string arr[9822][22];
+	string arr[][22];
 	int n;
 	int start;
 
@@ -81,14 +81,14 @@ string temp[22];
    
 	}
   }
-/*
+
  //test to see if working sort
 int p = 0;
-for (p = start; p < n; p++)
+for (p = args->start; p < args->n; p++)
 {
- cout<<arr[p][1] << endl;
+ cout<<args->arr[p][1] << endl;
 } 
-*/
+
 }
 
 void twoProcess(string arr[][22]){
@@ -173,13 +173,37 @@ pthread_t threads[num_threads];
 int rc;
    for(i = 0; i < num_threads; i++){
 	struct thread_args args;
-	args.n = 982;
-	args.start = (9822/num_threads);
-	for(int j = 0; j < 9822; j++){
+         	if(num_threads == 2){
+        	args.n = 9822 / num_threads;
+	        }
+         	else if(num_threads = 4){
+			if(i == 0){
+	
+			}
+			else if(i == 1){
+
+			}
+			else if(i == 2){
+
+			}
+
+			else if(i == 3){
+			
+			}
+         	}
+
+	args.start = args.n * i;
+
+	if(i = 0){for(int j = 0; j < args.n; j++){
 	   for(int k = 0; k < 22; k++){	
 			args.arr[j][k] = arr[j][k]; 
 		}
-	}	
+	}}
+	else{for(int j = args.start; j < (args.n * i); j++){
+	   for(int k = 0; k < 22; k++){	
+			args.arr[j][k] = arr[j][k]; 
+		}
+	}}		
 	rc =pthread_create(&threads[i],NULL,bubble_threads, (void*)&args);	
     }
 
@@ -274,12 +298,18 @@ switch(num){
 	time(&endTime);
 	final = difftime(endTime,startTime);
 	cout << final << " seconds";
-  case '5':
+  case '5':	
+	time(&startTime);
 	threading(earthquakes, 2);
+	time(&endTime);
+	final = difftime(endTime,startTime);
+	cout << final << " seconds";	
 	break;
   case '6':
 	threading(earthquakes,4);
 	break;
+  case '7':
+	threading(earthquakes,10);
   default:
 	exit(0);
 

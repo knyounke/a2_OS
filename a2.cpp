@@ -171,8 +171,9 @@ void threading(string arr[][22], int num_threads){
 int i;
 pthread_t threads[num_threads];
 int rc;
+struct thread_args args;
    for(i = 0; i < num_threads; i++){
-	struct thread_args args;
+	
          	if(num_threads == 2){
         	args.n = 9822 / num_threads;
 	        }
@@ -190,6 +191,7 @@ int rc;
 			else{
 			
 			}
+		}		
 		else
 		{
 			if(i == 0){
@@ -215,7 +217,6 @@ int rc;
 
 		}
 
-         	}
 
 	args.start = args.n * i;
 
@@ -228,9 +229,8 @@ int rc;
 	   for(int k = 0; k < 22; k++){	
 			args.arr[j][k] = arr[j][k]; 
 		}
-	}}	
-	cout << "creating thread" << endl;	
-	rc =pthread_create(&threads[i],NULL,bubble_threads, (void*)&args);	
+	}}		
+	rc =pthread_create(&threads[i],NULL,bubble_threads, (void*)&args);
     }
 
 }

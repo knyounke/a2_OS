@@ -82,12 +82,12 @@ string temp[22];
 	}
   }
 
- //test to see if working sort
+/* //test to see if working sort
 int p = 0;
 for (p = args->start; p < args->n; p++)
 {
  cout<<args->arr[p][1] << endl;
-} 
+} */
 
 }
 
@@ -187,9 +187,34 @@ int rc;
 
 			}
 
-			else if(i == 3){
+			else{
 			
 			}
+		else
+		{
+			if(i == 0){
+			}
+			else if(i == 1){
+			}
+			else if(i == 2){
+			}
+			else if(i == 3){
+			}
+			else if(i == 4){
+			}
+			else if(i == 5){
+			}
+			else if(i == 6){
+			}
+			else if(i == 7){
+			}
+			else if(i == 8){
+			}
+			else{
+			}
+
+		}
+
          	}
 
 	args.start = args.n * i;
@@ -203,7 +228,8 @@ int rc;
 	   for(int k = 0; k < 22; k++){	
 			args.arr[j][k] = arr[j][k]; 
 		}
-	}}		
+	}}	
+	cout << "creating thread" << endl;	
 	rc =pthread_create(&threads[i],NULL,bubble_threads, (void*)&args);	
     }
 
